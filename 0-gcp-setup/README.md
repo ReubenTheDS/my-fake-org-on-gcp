@@ -23,19 +23,34 @@ export HTTPS_PROXY="https://url/to/your/proxy"
 3. Download the installer from [the official link](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe) & run it
 
 
-4. Authorize gcloud to obtain Google user credentials
+4. Optional: If using custom CA certs (usually in a corporate environment) SSL/TLS certificate, add it to gcloud config:
+```
+gcloud config set core/custom_ca_certs_file="C:/path/to/your/cert/file.crt"
+```
+
+
+5. To set a proxy for use by gcloud SDK itself, run the commands below with your values:
+```
+gcloud config set proxy/type http
+gcloud config set proxy/address 1.234.56.78
+gcloud config set proxy/port 8080
+```
+
+
+6. Authorize gcloud to obtain Google user credentials
 ```
 gcloud auth application-default login
 ```
 [Difference between two `gcloud auth` commands](https://stackoverflow.com/questions/53306131/difference-between-gcloud-auth-application-default-login-and-gcloud-auth-logi)
 
 
-5. Check that the last step worked by listing credentials
+7. Check that the last step worked by listing credentials
 ```
 gcloud auth list
 ```
 
-6. Create a project & set it as the default for further `gcloud` commands
+
+8. Create a project & set it as the default for further `gcloud` commands
 ```
 gcloud projects create --set-as-default 'my-fake-org-on-gcp'
 ```

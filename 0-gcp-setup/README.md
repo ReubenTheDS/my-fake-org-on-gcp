@@ -55,3 +55,9 @@ gcloud auth list
 gcloud projects create --set-as-default 'my-fake-org-on-gcp'
 ```
 [Reference](https://cloud.google.com/sdk/gcloud/reference/projects/create)
+
+
+9. Verify that the project has been created
+```
+gcloud projects list
+```

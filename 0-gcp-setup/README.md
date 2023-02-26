@@ -61,3 +61,6 @@ gcloud projects create --set-as-default 'my-fake-org-on-gcp'
 ```
 gcloud projects list
 ```
+
+
+10. Enable billing on the project 'my-fake-org-on-gcp' using Google Console

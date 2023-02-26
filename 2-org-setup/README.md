@@ -1,11 +1,3 @@
-# Org Structure
-The Organisation consists of:
-- The CEO & GCP project owner i.e. you
-- 2 Data Scientists
-- 1 MLOPs engineer
-- 1 Infrastructre engineer  
-![Org Structure](./Org%20structure.jpg)
-
 # Steps
 1. Using the Google Cloud console, create a billing account. Note its ID and store it in an env variable:
 ```

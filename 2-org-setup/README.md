@@ -4,7 +4,7 @@
 export TF_VAR_ORG_BILLING_ID='enter your ID here'
 ```
 
-1. Plan & then apply the file `main.tf` using Terraform (see file for more comments):
+2. Plan & then apply the file `main.tf` using Terraform (see file for more comments):
 ```
 cd '2-org-setup'
 terraform init
@@ -12,11 +12,11 @@ terraform plan
 terraform apply -auto-approve
 ```
 
-1. Verify that the projects have been created
+3. Verify that the projects have been created
 ```
 gcloud projects list
 ```
 
-1. Using the [GCP console](https://console.cloud.google.com), enable the following APIs on the projects 'ds-ml-app1' & 'ds-ml-app2'  
+4. Using the [GCP console](https://console.cloud.google.com), enable the following APIs on the projects 'ds-ml-app1' & 'ds-ml-app2'  
 - Cloud Source Repositories API  
 Read: Why this should not be done through Terraform: [Ref 1](https://stackoverflow.com/a/72306829), [Ref 2](https://stackoverflow.com/a/72094901)  

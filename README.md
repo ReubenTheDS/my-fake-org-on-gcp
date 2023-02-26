@@ -30,4 +30,4 @@ The Infrastructure Engineer (she) is in charge of maintaining & setting up:
 
 
 ## CEO
-The CEO is the owner & admin of any & all GCP projects created
+The CEO is the owner & admin of any & all GCP projects created. Only the CEO has access to billing accounts.

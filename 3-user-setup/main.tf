@@ -85,33 +85,14 @@ variable "Infra_gmail" {
 }
 
 
-# Infra engineer & MLOPs engineer are the admins of source code repositories for projects by both teams of Data Scientists
+
 # references:
 #  Terraform: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam#google_project_iam_binding
 #  Google ref for ALL roles: https://cloud.google.com/iam/docs/understanding-roles#predefined
-resource "google_project_iam_binding" "binding-1" {
-  project = "ds-ml-app1"
-  role    = "roles/source.admin"
-
-  members = [
-    "user:${var.Infra_gmail}",
-    "user:${var.MLOps_gmail}"
-  ]
-}
-
-resource "google_project_iam_binding" "binding-2" {
-  project = "ds-ml-app2"
-  role    = "roles/source.admin"
-
-  members = [
-    "user:${var.Infra_gmail}",
-    "user:${var.MLOps_gmail}"
-  ]
-}
 
 
 # 1 Data scientist in project 'ds-ml-app1'
-resource "google_project_iam_binding" "ds-binding-1" {
+resource "google_project_iam_binding" "ds1-binding-1" {
   project = "ds-ml-app1"
   role    = "roles/source.writer"
 
@@ -121,13 +102,71 @@ resource "google_project_iam_binding" "ds-binding-1" {
 }
 
 
+# # grant DS1 view access to the project, in Google Cloud console
+# resource "google_project_iam_binding" "ds1-binding-2" {
+#   project = "ds-ml-app1"
+#   role    = "roles/resourcemanager.folderViewer"
+
+#   members = [
+#     "user:${var.DS1_gmail}"
+#   ]
+# }
+
+
 # 2 Data scientists in project 'ds-ml-app2'
-resource "google_project_iam_binding" "ds-binding-2" {
+resource "google_project_iam_binding" "ds2-binding-1" {
   project = "ds-ml-app2"
   role    = "roles/source.writer"
 
   members = [
     "user:${var.DS2_gmail}",
     "user:${var.DS3_gmail}"
+  ]
+}
+
+# # grant DS2 & DS3 view access to the project, in Google Cloud console
+# resource "google_project_iam_binding" "ds2-binding-2" {
+#   project = "ds-ml-app2"
+#   role    = "roles/resourcemanager.folderViewer"
+
+#   members = [
+#     "user:${var.DS2_gmail}",
+#     "user:${var.DS3_gmail}"
+#   ]
+# }
+
+
+# MLOPs engineer & Infra engineer are the admins of their respecive projects, though they cannot see billing details
+resource "google_project_iam_binding" "mlops-binding-1" {
+  project = "my-org-mlops"
+  role    = "roles/resourcemanager.organizationAdmin"
+  members = ["user:${var.MLOps_gmail}"]
+}
+
+resource "google_project_iam_binding" "infra-binding-1" {
+  project = "my-org-infra"
+  role    = "roles/resourcemanager.organizationAdmin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+
+# MLOPs engineer & Infra engineer are also admins of source code repositories of both teams of Data Scientists
+resource "google_project_iam_binding" "source-repo-admin-binding-1" {
+  project = "ds-ml-app1"
+  role    = "roles/source.admin"
+
+  members = [
+    "user:${var.MLOps_gmail}",
+    "user:${var.Infra_gmail}"
+  ]
+}
+
+resource "google_project_iam_binding" "source-repo-admin-binding-2" {
+  project = "ds-ml-app2"
+  role    = "roles/source.admin"
+
+  members = [
+    "user:${var.MLOps_gmail}",
+    "user:${var.Infra_gmail}"
   ]
 }

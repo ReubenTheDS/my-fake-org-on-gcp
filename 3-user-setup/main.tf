@@ -162,6 +162,35 @@ resource "google_project_iam_binding" "infra-binding-2" {
 }
 
 
+# ability to administrate Compute Engine resources in the project 'my-org-infra'
+resource "google_project_iam_binding" "infra-binding-3" {
+  project = "my-org-infra"
+  role    = "roles/compute.admin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+
+# ability to administrate Network resources in the project 'my-org-infra'
+resource "google_project_iam_binding" "infra-binding-4" {
+  project = "my-org-infra"
+  role    = "roles/networkmanagement.admin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+resource "google_project_iam_binding" "infra-binding-5" {
+  project = "my-org-infra"
+  role    = "roles/compute.networkAdmin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+# ref: https://cloud.google.com/iam/docs/understanding-roles#serviceusage.serviceUsageAdmin
+resource "google_project_iam_binding" "infra-binding-6" {
+  project = "my-org-infra"
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+
 # ================= common to MLOps & Infra engineer =================
 # MLOPs engineer & Infra engineer are also admins of source code repositories of both teams of Data Scientists
 resource "google_project_iam_binding" "source-repo-admin-binding-1" {

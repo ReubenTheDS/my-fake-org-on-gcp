@@ -18,8 +18,11 @@ terraform plan
 terraform apply -auto-approve
 ```
 
+3. Log into Cloud Console with the email in env variable TF_VAR_Infra_gmail & enable the following APIs:
+- Compute Engine API
 
-3. Set up the VPC & infrastructure using Terraform ( see file 'main.tf' for more comments):
+
+4. Set up the VPC & infrastructure using Terraform ( see file 'main.tf' for more comments):
 ```
 cd 4-infra-vpc
 terraform init

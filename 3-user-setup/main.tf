@@ -136,13 +136,17 @@ resource "google_project_iam_binding" "ds2-binding-1" {
 # }
 
 
-# MLOPs engineer & Infra engineer are the admins of their respecive projects, though they cannot see billing details
+# ================= MLOPs engineer =================
+# admin of the project 'my-org-mlops'
 resource "google_project_iam_binding" "mlops-binding-1" {
   project = "my-org-mlops"
   role    = "roles/resourcemanager.organizationAdmin"
   members = ["user:${var.MLOps_gmail}"]
 }
 
+
+# ================= Infra engineer =================
+# resource manager of the project 'my-org-infra'
 resource "google_project_iam_binding" "infra-binding-1" {
   project = "my-org-infra"
   role    = "roles/resourcemanager.organizationAdmin"
@@ -150,6 +154,15 @@ resource "google_project_iam_binding" "infra-binding-1" {
 }
 
 
+# storage manager of the project 'my-org-infra'
+resource "google_project_iam_binding" "infra-binding-2" {
+  project = "my-org-infra"
+  role    = "roles/storage.admin"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+
+# ================= common to MLOps & Infra engineer =================
 # MLOPs engineer & Infra engineer are also admins of source code repositories of both teams of Data Scientists
 resource "google_project_iam_binding" "source-repo-admin-binding-1" {
   project = "ds-ml-app1"

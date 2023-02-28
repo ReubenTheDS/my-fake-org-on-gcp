@@ -77,3 +77,11 @@ netstat -tunlp | grep 8080
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
+**NOTE**
+If instances are deleted manually/by Terraform, but happen to use the same IP every time, this error might occur when starting an SSH session:  
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+```
+To fix this, open the file 'known_hosts' & delete the entry for that reused IP address

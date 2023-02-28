@@ -183,13 +183,20 @@ resource "google_project_iam_binding" "infra-binding-5" {
   members = ["user:${var.Infra_gmail}"]
 }
 
-# ref: https://cloud.google.com/iam/docs/understanding-roles#serviceusage.serviceUsageAdmin
+# ability to use service accounts
+# ref: https://cloud.google.com/iam/docs/understanding-roles#iam.serviceAccountUser
 resource "google_project_iam_binding" "infra-binding-6" {
+  project = "my-org-infra"
+  role    = "roles/iam.serviceAccountUser"
+  members = ["user:${var.Infra_gmail}"]
+}
+
+# ref: https://cloud.google.com/iam/docs/understanding-roles#serviceusage.serviceUsageAdmin
+resource "google_project_iam_binding" "infra-binding-7" {
   project = "my-org-infra"
   role    = "roles/serviceusage.serviceUsageAdmin"
   members = ["user:${var.Infra_gmail}"]
 }
-
 
 # ================= common to MLOps & Infra engineer =================
 # MLOPs engineer & Infra engineer are also admins of source code repositories of both teams of Data Scientists

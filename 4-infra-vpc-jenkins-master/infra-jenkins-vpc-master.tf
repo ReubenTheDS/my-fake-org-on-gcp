@@ -60,7 +60,8 @@ resource "google_compute_instance" "jenkins_compute_instance" {
     ssh-keys = "infra_engineer:${file("~/.ssh/tmp/infra_engr/id_rsa.pub")}"
   }
 
-  # metadata_startup_script = "echo hi > /test.txt"
+  # installation of Jenkins will take about 10 minutes
+  metadata_startup_script = "${file("install_jenkins_master.sh")}"
 }
 
 
@@ -98,7 +99,35 @@ resource "google_compute_firewall" "jenkins_master_firewall_rule_ssh" {
   target_tags = ["jenkins-master"]  # apply this rule to VM tagged "jenkins-master"
 }
 
+# create a firewall to allow HTTP traffic to the Jenkins master on port 8080 (default port by Jenkins) from anywhere
+resource "google_compute_firewall" "jenkins_master_firewall_rule_http" {
+  name = "jenkins-master-firewall-http"
+  network = google_compute_network.jenkins_network.name
+
+  direction = "INGRESS"   # this rule applies to incoming traffic
+
+  allow {
+    protocol = "tcp"
+    ports = ["8080"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+
+  target_tags = ["jenkins-master"]  # apply this rule to VM tagged "jenkins-master"
+}
+
 # print the IP address of the VM provisioned for Jenkins master
 output "jenkins_master_IP" {
   value = google_compute_instance.jenkins_compute_instance.network_interface.0.access_config.0.nat_ip
+}
+
+output "jenkins_master_URL" {
+  value = join ("", 
+    [
+      "http://", 
+      google_compute_instance.jenkins_compute_instance.network_interface.0.access_config.0.nat_ip, 
+      ":", 
+      "8080"
+    ]
+  )
 }

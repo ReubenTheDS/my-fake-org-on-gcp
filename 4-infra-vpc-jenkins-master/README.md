@@ -47,17 +47,33 @@ This will generate 2 files in the local folder "~/.ssh/tmp/infra_engr":
 Refer: https://cloud.google.com/compute/docs/instances/access-overview
 
 
-6. Set up the VPC & infrastructure using Terraform ( see file 'main.tf' for more comments):
+6. Set up the VPC & infrastructure using Terraform ( see file 'infra-jenkins-vpc-master.tf' for more comments):
 ```
 cd 4-infra-vpc-jenkins-master
 terraform init
 terraform plan
 terraform apply -auto-approve
 ```
-The IP address of the VM created for the Jenkins master will be printed out by terraform
+The IP address of the VM created for the Jenkins master will be printed out by Terraform
 
 
-7. Verify that SSHing into the Jenkins VM with the username 'infra_engineer' is possible, by using the SSH key generated:
+7. Note the IP address & URL of the Jenkins Master from the step above
+
+
+8. Verify that SSHing into the Jenkins VM with the username 'infra_engineer' is possible, by using the SSH key generated:
 ```
 ssh  -i ~/.ssh/tmp/infra_engr/id_rsa   infra_engineer@ENTER_IP_ADDRESS_HERE
 ```
+
+
+9. In order to verify that Jenkins was installed and get the Jenkins admin password:
+    1. Wait about 10 minutes for installation of Jenkins
+    2. SSH into the VM & check the output of following commands
+```
+sudo systemctl status jenkins
+
+netstat -tunlp | grep 8080
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+

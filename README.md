@@ -1,9 +1,9 @@
 # About
-This project simulates an Org that is using Google Cloud resources. Terraform is used as much as possible
+This project simulates an Org that is using Google Cloud resources. Terraform & Ansible are used as much as possible
 
 # Org Structure
 The Organisation consists of:
-- The CEO & GCP project owner i.e. you
+- The CEO & GCP project owner
 - 2 Data Scientists
 - 1 MLOPs engineer
 - 1 Infrastructure engineer  
@@ -15,19 +15,26 @@ The Organisation consists of:
 There are 3 Data Scientists in 2 teams.  
 DS Team 1 has (limited) access to repositories on Google Cloud i.e. Google Cloud Source Repositories  
 DS Team 2 has (limited) access to repositories on Google Cloud and an in-house GitLab
-
+  
 
 ## MLOps Engineer
 The MLOps Engineer is in charge of DevOps practices, i.e. developing & maintaining CI CD pipelines for the Data Scientists  
 He develops scripts for use in Jenkins & Google Cloud Build, as well as regulates access to these by the Data Scientists
-
+  
 
 ## Infrastructure Engineer
 The Infrastructure Engineer (she) is in charge of maintaining & setting up:
 - GitLab for the ML team 'ds-ml-app2
 - Jenkins setup & maintenance
 - GKE clusters & operators
-
+  
+All operations to be run by the Infrastructure engineer are in the folder [infra-engineer](./infra-engineer/)
+  
 
 ## CEO
-The CEO is the owner & admin of any & all GCP projects created. Only the CEO has access to billing accounts.
+The CEO is the owner & admin of any & all GCP projects created. Only the CEO has access to billing accounts.  
+All operations to be run by the CEO are in the folder [ceo](./ceo/)
+
+
+# Steps
+Start off with the folder [ceo](./ceo/)

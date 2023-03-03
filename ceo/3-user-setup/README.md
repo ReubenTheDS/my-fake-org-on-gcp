@@ -13,7 +13,15 @@ export TF_VAR_MLOps_gmail="enter 4th gmail account here@gmail.com"
 export TF_VAR_Infra_gmail="enter 5th gmail account here@gmail.com"
 ```
 
-3. Run the Terraform commands to create the users & assign them to their teams/projects (see file for more comments):
+
+3. Create a directory for storing SSH keys for these users
+Use the existing folder '.ssh' in the home directory. This folder usually contains ssh keys
+```
+mkdir ~/.ssh/tmp/
+```
+
+
+4. Run the Terraform commands to create the users & assign them to their teams/projects (see file for more comments):
 ```
 cd 3-user-setup
 terraform init
@@ -21,7 +29,8 @@ terraform plan
 terraform apply -auto-approve
 ```
 
-4. To verify these changes:
+
+5. To verify these changes:
 - log into Google Cloud Console using your **primary** (CEO) email ID
 - navigate through the projects looking at the IAM section as well as Enabled APIs. 
 - view available [Google Cloud Source Repositories](https://source.cloud.google.com/)

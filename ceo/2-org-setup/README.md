@@ -1,10 +1,10 @@
 # Steps
-1. Using the Google Cloud console, create a billing account. Note its ID and store it in an env variable:
+1. Note the ID of the billing account created in [0-gcp-setup](../0-gcp-setup/) and store it in an env variable:
 ```
 export TF_VAR_ORG_BILLING_ID='enter your ID here'
 ```
 
-2. Plan & then apply the file `main.tf` using Terraform (see file for more comments):
+2. Apply the file `main.tf` using Terraform (see file for more comments):
 ```
 cd '2-org-setup'
 terraform init

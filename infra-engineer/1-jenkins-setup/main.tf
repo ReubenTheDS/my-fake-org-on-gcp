@@ -34,7 +34,7 @@ resource "google_compute_subnetwork" "jenkins_subnetwork" {
 
 # A VM for the Jenkins master
 # ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance
-resource "google_compute_instance" "jenkins_compute_instance" {
+resource "google_compute_instance" "jenkins_master_compute_instance" {
   name = "jenkins-master"
   machine_type = "e2-medium"  # TODO: try with cheaper machines
   zone = "us-east1-b" # same as the zone being used throughout
@@ -55,13 +55,11 @@ resource "google_compute_instance" "jenkins_compute_instance" {
     }
   }
 
-  # upload the public SSH key, tying it to the user 'infra_engineer' on the VM
+  # to allow the Infra engineer to SSH into the Jenkins master:
+  #  upload the public SSH key, tying it to the user 'infra_engineer' on the VM
   metadata = {
     ssh-keys = "infra_engineer:${file("~/.ssh/tmp/infra_engr/id_rsa.pub")}"
   }
-
-  # installation of Jenkins will take about 10 minutes
-  metadata_startup_script = "${file("install_jenkins_master.sh")}"
 }
 
 
@@ -116,16 +114,44 @@ resource "google_compute_firewall" "jenkins_master_firewall_rule_http" {
   target_tags = ["jenkins-master"]  # apply this rule to VM tagged "jenkins-master"
 }
 
+
+# A VM for the Jenkins agent
+resource "google_compute_instance" "jenkins_agent_compute_instance" {
+  name = "jenkins-agent"
+  machine_type = "e2-medium"  # TODO: try with cheaper machines
+  zone = "us-east1-b" # same as the zone being used throughout
+
+  tags = ["jenkins-agent"]    # for targetting VMs by label
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"    # latest widely supported Linux OS
+    }
+  }
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.jenkins_subnetwork.name
+  }
+
+  # upload the public SSH key, tying it to the user 'infra_engineer' on the VM
+  metadata = {
+    ssh-keys = "infra_engineer:${file("~/.ssh/tmp/infra_engr/id_rsa.pub")}"
+  }
+}
+
+
+
+
 # print the IP address of the VM provisioned for Jenkins master
 output "jenkins_master_IP" {
-  value = google_compute_instance.jenkins_compute_instance.network_interface.0.access_config.0.nat_ip
+  value = google_compute_instance.jenkins_master_compute_instance.network_interface.0.access_config.0.nat_ip
 }
 
 output "jenkins_master_URL" {
   value = join ("", 
     [
       "http://", 
-      google_compute_instance.jenkins_compute_instance.network_interface.0.access_config.0.nat_ip, 
+      google_compute_instance.jenkins_master_compute_instance.network_interface.0.access_config.0.nat_ip, 
       ":", 
       "8080"
     ]

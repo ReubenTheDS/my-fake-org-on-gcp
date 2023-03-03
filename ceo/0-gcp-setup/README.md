@@ -50,7 +50,7 @@ gcloud auth list
 ```
 
 
-8. Create a project & set it as the default for further `gcloud` commands
+8. Create a project & set it as the default for further `gcloud` commands by this user
 ```
 gcloud projects create --set-as-default 'my-fake-org-on-gcp'
 ```

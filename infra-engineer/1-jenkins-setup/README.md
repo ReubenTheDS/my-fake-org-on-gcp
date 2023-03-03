@@ -5,7 +5,7 @@ The Infrastructure Engineer uses this folder to provision a VM to act as the Jen
 # Steps
 1. Set up the VPC & Jenkins master using Terraform ( see file 'infra-jenkins-vpc-master.tf' for more comments):
 ```
-cd 1-vpc-jenkins-master
+cd infra-engineer/1-jenkins-setup
 terraform init
 terraform plan
 terraform apply -auto-approve
@@ -24,7 +24,8 @@ ssh  -i ~/.ssh/tmp/infra_engr/id_rsa   infra_engineer@ENTER_IP_ADDRESS_HERE
 
 4. In order to verify that Jenkins was installed and get the Jenkins admin password:
     1. Wait about 10 minutes for installation of Jenkins
-    2. SSH into the VM & check the output of following commands
+    2. Visit the URL printed out by the Terraform script
+    3. SSH into the VM & check the output of following commands
 ```
 sudo systemctl status jenkins
 

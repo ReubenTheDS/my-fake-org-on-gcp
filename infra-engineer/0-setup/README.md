@@ -1,5 +1,5 @@
 # About
-Setup for Infrastructre Engineer
+Setup for Infrastructure Engineer
 
 
 # Steps

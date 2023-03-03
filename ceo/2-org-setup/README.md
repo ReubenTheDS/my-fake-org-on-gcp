@@ -6,7 +6,7 @@ export TF_VAR_ORG_BILLING_ID='enter your ID here'
 
 2. Apply the file `main.tf` using Terraform (see file for more comments):
 ```
-cd '2-org-setup'
+cd 'ceo/2-org-setup'
 terraform init
 terraform plan
 terraform apply -auto-approve

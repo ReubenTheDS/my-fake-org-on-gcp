@@ -23,7 +23,7 @@ mkdir ~/.ssh/tmp/
 
 4. Run the Terraform commands to create the users & assign them to their teams/projects (see file for more comments):
 ```
-cd 3-user-setup
+cd ceo/3-user-setup
 terraform init
 terraform plan
 terraform apply -auto-approve

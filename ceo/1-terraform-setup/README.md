@@ -30,6 +30,6 @@ gcloud storage buckets list
 
 5. Enter the folder `1-terraform-setup` and initialise terraform
 ```
-cd 1-terraform-setup
+cd ceo/1-terraform-setup
 terraform init
 ```

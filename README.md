@@ -1,5 +1,5 @@
 # About
-This project simulates an Org that is using Google Cloud resources. Terraform & Ansible are used as much as possible
+This project simulates an Org that is using Google Cloud resources. Terraform is used as much as possible
 
 # Org Structure
 The Organisation consists of:

@@ -6,7 +6,7 @@ Setup for Infrastructure Engineer
 
 1. Create a directory for SSH keys for the Infrastructure engineer
 ```
-mkdir ~/.ssh/tmp/infra_engr
+mkdir ~/.ssh/infra_engr
 ```
 
 
@@ -14,9 +14,9 @@ mkdir ~/.ssh/tmp/infra_engr
 - file name: 'id_rsa'
 - username: infra_engineer
 ```
-ssh-keygen -f ~/.ssh/tmp/infra_engr/id_rsa  -C "infra_engineer"
+ssh-keygen -f ~/.ssh/infra_engr/id_rsa  -C "infra_engineer"
 ```
-This will generate 2 files in the local folder "~/.ssh/tmp/infra_engr":
+This will generate 2 files in the local folder "~/.ssh/infra_engr":
 - id_rsa, which is the private key
 - id_rsa.pub, which is the public key and has to be uploaded to the VM  
 

@@ -17,7 +17,7 @@ export TF_VAR_Infra_gmail="enter 5th gmail account here@gmail.com"
 3. Create a directory for storing SSH keys for these users
 Use the existing folder '.ssh' in the home directory. This folder usually contains ssh keys
 ```
-mkdir ~/.ssh/tmp/
+mkdir ~/.ssh/
 ```
 
 

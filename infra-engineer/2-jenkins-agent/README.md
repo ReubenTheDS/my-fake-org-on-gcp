@@ -99,3 +99,41 @@ exit
 exit
 
 ```
+
+
+## Jenkins agent configuration
+1. Print out the private key in the Jenkins master:
+```
+ssh  -i ~/.ssh/infra_engr/id_rsa   "infra_engineer@${GCP_JENKINS_MASTER_IP}"
+cat ~/.ssh/id_rsa
+```
+
+
+2. Admin password can be accessed using:
+```
+ssh  -i ~/.ssh/infra_engr/id_rsa   "infra_engineer@${GCP_JENKINS_MASTER_IP}"  'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
+```
+
+
+3. Navigate to the Jenkins UI using the address printed by the command below and enter the password
+```
+echo "http://${GCP_JENKINS_MASTER_IP}:8080"
+```
+
+
+4. Install the suggested plugins & create an admin user if needed
+
+
+5. Add a new agent by navigating to 'Managing Jenkins' in left pane, then 'Manage Nodes and Clouds':
+Node name: agent-1
+Type: 'Permanent Agent'
+Remote root directory: '/home/jenkins/'
+Launch method: 'Launch agents via SSH'
+Host: private IP address of the 
+Credentials:
+    'New'
+    Kind: 'SSH Username with private key'
+    Username: 'jenkins'
+    Private Key: 'Enter directly', then click on 'Add' and paste value from step 1 in this section
+    Then select 'jenkins' again
+Host Key Verification Strategy: 'Manually trusted key Verification Strategy'
